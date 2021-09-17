@@ -1,3 +1,3 @@
 # Raiden
 
-W.I.P Discord Bot.
+W.I.P.
