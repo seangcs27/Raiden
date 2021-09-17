@@ -1,0 +1,20 @@
+{
+  "name": "bot",
+  "version": "1.0.0",
+  "main": "bot.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon bot.js"
+  },
+  "dependencies": {
+    "@discordjs/opus": "^0.6.0",
+    "discord-music-player": "^8.0.2",
+    "discord.js": "^13.1.0",
+    "dotenv": "^10.0.0",
+    "nodemon": "^2.0.12",
+    "opusscript": "^0.0.8",
+    "package.json": "^2.0.1",
+    "prettier": "^2.4.0",
+    "winston": "^3.3.3"
+  }
+}
