@@ -1,29 +1,20 @@
 const { RepeatMode } = require("discord-music-player");
 const { MessageEmbed } = require("discord.js");
+
 const avatarURL = "https://cdn.discordapp.com/avatars";
 
 function InitMusicCommands(client, settings) {
   client.on("messageCreate", async (message) => {
-    const prefix = "!";
-    if (message.author.bot) return;
-    if (!message.guild) return;
-    if (!message.content.startsWith(prefix)) return;
-    if (!message.member) message.member = await message.guild.fetchMember(message);
-    
-    let guildQueue = client.player.getQueue(message.guild.id);
-
-    const args = message.content.slice(prefix.length).trim().split(/ +/g);
-    const command = args.shift().toLowerCase();
+    const args = message.content.slice(settings.prefix.length).trim().split(/ +/g);
+    const command = args.shift();
     const channelToReply = client.channels.cache.get(message.channelId);
-
-    if (command.length === 0) return;
+    let guildQueue = client.player.getQueue(message.guild.id);
 
     if (command === "me") {
       channelToReply.send(message.author.displayAvatarURL());
     }
-
     if (command === "stfu") {
-      channelToReply.send("STFU You lil'non-eternal jerk!sss");
+      channelToReply.send("STFU You little shite!");
     }
 
     if (command === "play" || command === "p") {
@@ -189,7 +180,7 @@ function InitMusicCommands(client, settings) {
         return;
       }
     }
-    // Pause
+    // Pause 
     if (command === "pause" || command === "stop") {
       try {
         guildQueue.setPaused(true);
@@ -198,7 +189,7 @@ function InitMusicCommands(client, settings) {
         return;
       }
     }
-    // Resume
+    // Resume 
     if (command === "resume" || command === "re") {
       try {
         guildQueue.setPaused(false);
@@ -207,7 +198,7 @@ function InitMusicCommands(client, settings) {
         return;
       }
     }
-    // Remove
+    // Remove 
     if (command === "remove") {
       try {
         guildQueue.remove(parseInt(args[0]));
