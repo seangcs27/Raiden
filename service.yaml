@@ -17,15 +17,14 @@ spec:
       annotations:
         autoscaling.knative.dev/maxScale: '5'
         client.knative.dev/user-image: asia-southeast2-docker.pkg.dev/maximal-muse-327106/cloud-run-source-deploy/raiden
-        run.googleapis.com/client-name: gcloud
-        run.googleapis.com/client-version: 358.0.0
-      name: raiden-00015-dog
+        run.googleapis.com/client-name: cloud-console
+      name: raiden-00022-gup
     spec:
       containerConcurrency: 80
       containers:
-      - image: asia-southeast2-docker.pkg.dev/maximal-muse-327106/cloud-run-source-deploy/raiden@sha256:e7c0167e77693192586c2f8e118a233e610fcbc34a031e6ca937d7fdb8f450bb
+      - image: asia-southeast2-docker.pkg.dev/maximal-muse-327106/cloud-run-source-deploy/raiden
         ports:
-        - containerPort: 3000
+        - containerPort: 8080
           name: http1
         resources:
           limits:
