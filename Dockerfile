@@ -14,4 +14,4 @@ RUN npm install
 COPY . .
 
 EXPOSE 8080
-CMD [ "nodemon", "bot.js" ]
+CMD [ "node", "bot.js" ]
