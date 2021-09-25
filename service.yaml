@@ -1,0 +1,38 @@
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  annotations:
+    client.knative.dev/user-image: asia-southeast2-docker.pkg.dev/maximal-muse-327106/cloud-run-source-deploy/raiden
+    run.googleapis.com/ingress: all
+    run.googleapis.com/ingress-status: all
+  labels:
+    cloud.googleapis.com/location: asia-southeast2
+    gcb-trigger-id: 3ef78d78-637a-44fc-9949-0a3821b58a1a
+    managed-by: gcp-cloud-build-deploy-cloud-run
+  name: raiden
+  namespace: '601911640462'
+spec:
+  template:
+    metadata:
+      annotations:
+        autoscaling.knative.dev/maxScale: '5'
+        client.knative.dev/user-image: asia-southeast2-docker.pkg.dev/maximal-muse-327106/cloud-run-source-deploy/raiden
+        run.googleapis.com/client-name: gcloud
+        run.googleapis.com/client-version: 358.0.0
+      name: raiden-00015-dog
+    spec:
+      containerConcurrency: 80
+      containers:
+      - image: asia-southeast2-docker.pkg.dev/maximal-muse-327106/cloud-run-source-deploy/raiden@sha256:e7c0167e77693192586c2f8e118a233e610fcbc34a031e6ca937d7fdb8f450bb
+        ports:
+        - containerPort: 3000
+          name: http1
+        resources:
+          limits:
+            cpu: 1000m
+            memory: 512Mi
+      serviceAccountName: 601911640462-compute@developer.gserviceaccount.com
+      timeoutSeconds: 300
+  traffic:
+  - latestRevision: true
+    percent: 100
