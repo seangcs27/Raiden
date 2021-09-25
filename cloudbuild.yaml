@@ -1,11 +1,11 @@
 steps:
-- name: 'gcr.io/cloud-builders/docker'
-  args: [ 'build', '-t', 'asia-southeast2-docker.pkg.dev/$PROJECT_ID/cloud-run-source-deploy/quickstart-image:tag1', '.' ]
+# - name: 'gcr.io/cloud-builders/docker'
+#   args: [ 'build', '-t', 'asia-southeast2-docker.pkg.dev/$PROJECT_ID/cloud-run-source-deploy/quickstart-image:tag1', '.' ]
 - name: node
   entrypoint: npm
   args: ['install']
 - name: node
   entrypoint: npm
-  args: ['run', 'start']
+  args: ['start']
 images:
 - 'asia-southeast2-docker.pkg.dev/$PROJECT_ID/cloud-run-source-deploy/quickstart-image:tag1'
