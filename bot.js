@@ -2,7 +2,7 @@ const { Client, Intents } = require("discord.js");
 const logger = require("winston");
 const auth = require("./assets/json/auth.json");
 const InitMusicCommands = require("./commands/commands");
-const PORT = process.env.PORT || 80;
+const PORT = process.env.PORT;
 
 logger.remove(logger.transports.Console);
 logger.add(new logger.transports.Console(), {
@@ -26,7 +26,7 @@ const { Player } = require("discord-music-player");
 const player = new Player(client, {
   leaveOnEmpty: true, // This options are optional.
 });
-// // You could define the Player as *client.player* for ease access.
+// You could define the Player as *client.player* for ease access.
 client.player = player;
 
 client.on("ready", () => {
