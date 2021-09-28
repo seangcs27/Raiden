@@ -4,7 +4,7 @@
   "main": "bot.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "Set PORT=80 && nodemon bot.js"
+    "start": "nodemon bot.js"
   },
   "dependencies": {
     "@discordjs/opus": "^0.6.0",
