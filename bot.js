@@ -2,7 +2,7 @@ const { Client, Intents } = require("discord.js");
 const logger = require("winston");
 const auth = require("./assets/json/auth.json");
 const InitMusicCommands = require("./commands/commands");
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 80;
 
 logger.remove(logger.transports.Console);
 logger.add(new logger.transports.Console(), {
