@@ -23,7 +23,7 @@ function InitMusicCommands(client, settings) {
     }
 
     if (command === "stfu") {
-      channelToReply.send("STFU You lil'non-eternal jerk!sss");
+      channelToReply.send("STFU You lil'non-eternal jerk!");
     }
 
     if (command === "play" || command === "p") {
