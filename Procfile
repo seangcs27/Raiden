@@ -1,1 +1,1 @@
-worker: node bot.js
+worker:Set PORT=80 && nodemon bot.js
