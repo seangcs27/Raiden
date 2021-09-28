@@ -2,6 +2,7 @@ const { Client, Intents } = require("discord.js");
 const logger = require("winston");
 const auth = require("./assets/json/auth.json");
 const InitMusicCommands = require("./commands/commands");
+const PORT = process.env.PORT || 3000;
 
 logger.remove(logger.transports.Console);
 logger.add(new logger.transports.Console(), {
@@ -29,10 +30,11 @@ const player = new Player(client, {
 client.player = player;
 
 client.on("ready", () => {
-  logger.info("Connected");
-  logger.info("Logged in as: ");
-  logger.info(client.user.username + " - (" + client.user.id + ")");
-  console.log("I am Raiden Bot 🎶");
+  // logger.info("Connected");
+  // logger.info("Logged in as: ");
+  // logger.info(client.user.username + " - (" + client.user.id + ")");
+  console.log("I am Raiden Bot 🎶");  
+  console.log(`Server is listening on port ${PORT}...`);
 });
 
 client.login(settings.token);
