@@ -4,7 +4,7 @@ const avatarURL = "https://cdn.discordapp.com/avatars";
 
 function InitMusicCommands(client, settings) {
   client.on("messageCreate", async (message) => {
-    const prefix = "!";
+    const prefix = "-";
     if (message.author.bot) return;
     if (!message.guild) return;
     if (!message.content.startsWith(prefix)) return;
@@ -117,7 +117,7 @@ function InitMusicCommands(client, settings) {
     // Remove Loop
     if (command === "removeLoop" || command === "noLoop") {
       try {
-        guildQueue.setRepeatMode(RepeatMode.DISABLED); // or 0 instead of RepeatMode.DISABLED
+        guildQueue.setRepeatMode(0); // or 0 instead of RepeatMode.DISABLED
         channelToReply.send("Loop Stopped.");
       } catch (err) {
         channelToReply.send("Invalid command.");
@@ -137,7 +137,7 @@ function InitMusicCommands(client, settings) {
     // Queue Loop
     if (command === "toggleQueueLoop" || command === "qLoop") {
       try {
-        guildQueue.setRepeatMode(RepeatMode.QUEUE); // or 2 instead of RepeatMode.QUEUE
+        guildQueue.setRepeatMode(2); // or 2 instead of RepeatMode.QUEUE
         channelToReply.send("Queue loop toggled.");
       } catch (err) {
         channelToReply.send("Invalid command.");
