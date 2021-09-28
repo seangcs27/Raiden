@@ -4,7 +4,7 @@ const avatarURL = "https://cdn.discordapp.com/avatars";
 
 function InitMusicCommands(client, settings) {
   client.on("messageCreate", async (message) => {
-    const prefix = "!";
+    const prefix = "-";
     if (message.author.bot) return;
     if (!message.guild) return;
     if (!message.content.startsWith(prefix)) return;
