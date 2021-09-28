@@ -15,7 +15,9 @@ const client = new Client({
 
 const settings = {
   // prefix: prefix,
-  token: auth.token,
+  // token: auth.token, // Token from auth.json
+  // TOKEN for Heroku Deployment 
+  token: process.env.TOKEN
 };
 
 InitMusicCommands(client, settings);
