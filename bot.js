@@ -1,6 +1,7 @@
 const { Client, Intents } = require("discord.js");
 const logger = require("winston");
-const auth = require("./assets/json/auth.json");
+const authJSON = require("./assets/json/auth.json");
+const prefixJSON = require("./assets/prefix/prefix.json")
 const InitMusicCommands = require("./commands/commands");
 const PORT = process.env.PORT || 80;
 
@@ -15,9 +16,10 @@ const client = new Client({
 });
 
 const settings = {
-  // prefix: prefix, 
-  token: process.env.TOKEN || auth.token,
+  prefix: process.env.PREFIX || prefixJSON.prefix,
+  token: process.env.TOKEN || authJSON.token,
 };
+// module.exports = Object.freeze(settings);
 
 InitMusicCommands(client, settings);
 const { Player } = require("discord-music-player");
@@ -31,7 +33,7 @@ client.on("ready", () => {
   // logger.info("Connected");
   // logger.info("Logged in as: ");
   // logger.info(client.user.username + " - (" + client.user.id + ")");
-  console.log("Raiden logged in.");  
+  console.log("Raiden logged in.");
   console.log(`Server is listening on port ${PORT}...`);
 });
 

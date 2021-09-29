@@ -1,10 +1,11 @@
 const { RepeatMode } = require("discord-music-player");
 const { MessageEmbed } = require("discord.js");
 const avatarURL = "https://cdn.discordapp.com/avatars";
+const BotSettings = require("../bot");
 
 function InitMusicCommands(client, settings) {
   client.on("messageCreate", async (message) => {
-    const prefix = "-";
+    let prefix = settings.prefix;
     if (message.author.bot) return;
     if (!message.guild) return;
     if (!message.content.startsWith(prefix)) return;
