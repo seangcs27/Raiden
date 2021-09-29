@@ -228,10 +228,32 @@ function InitMusicCommands(client, settings) {
       }
     }
     // Help
-    if (command === "help") {
+    if (command === "help" || command === "h") {
       try {
-        let helpMsg = "I'm lazy af bruh.";
-        channelToReply.send(helpMsg);
+        const helpMsg = new MessageEmbed()
+        .setColor("#3d213e")
+        .setTitle('Raiden Bot Commands')
+        .setAuthor("Raiden Bot", message.author.displayAvatarURL(), "")
+        .setDescription('List of Commands')
+        .addFields(
+          { name: 'Show this Help Message', value: '-h OR -help' },
+          { name: 'Play a Song', value: '-p <SONG_NAME> OR -p <SONG_LINK_YTUBE>' },
+          { name: 'Pause', value: '-pause OR -stop', inline: true },
+          { name: 'Resume', value: '-resume OR -re', inline: true },
+          { name: 'Skip', value: '-skip OR -next', inline: true },
+          { name: 'Queue', value: '-queue OR -q', inline: true },
+          { name: 'Delete/Clear Queue', value: '-clear OR -clearQueue', inline: true },
+          { name: 'Show Playlist', value: '-playlist OR -list' },
+          { name: 'Show Progress Bar', value: '-createProgressBar OR -cpb' },
+          { name: 'Show Current Song', value: '-nowPlaying OR -np' },
+          { name: 'Disconnect Bot from Channel', value: '-dc OR -disconnect OR -quit OR -end' },
+          { name: 'STFU', value: '-stfu' }
+          // { name: '\u200B', value: '\u200B' }
+        )
+        .setFooter('Raiden is for Personal & Private use only.');
+      // .addField('Inline field title', 'Some value here', true)
+      // .setTimestamp()
+      channelToReply.send({ embeds: [helpMsg] });
       } catch (err) {
         channelToReply.send("Invalid command.");
         return;
