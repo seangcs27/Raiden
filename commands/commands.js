@@ -9,12 +9,12 @@ function InitMusicCommands(client, settings) {
     if (!message.guild) return;
     if (!message.content.startsWith(prefix)) return;
     if (!message.member) message.member = await message.guild.fetchMember(message);
-    
-    let guildQueue = client.player.getQueue(message.guild.id);
 
     const args = message.content.slice(prefix.length).trim().split(/ +/g);
     const command = args.shift().toLowerCase();
     const channelToReply = client.channels.cache.get(message.channelId);
+
+    let guildQueue = client.player.getQueue(message.guild.id);
 
     if (command.length === 0) return;
 
@@ -23,7 +23,7 @@ function InitMusicCommands(client, settings) {
     }
 
     if (command === "stfu") {
-      channelToReply.send("STFU You lil'non-eternal jerk!");
+      channelToReply.send("再BB老娘就把你砌进神像里!");
     }
 
     if (command === "play" || command === "p") {
@@ -100,26 +100,26 @@ function InitMusicCommands(client, settings) {
     if (command === "skip" || command === "next") {
       try {
         guildQueue.skip();
-      } catch (err) {
+      } catch {
         channelToReply.send("Invalid command. No songs are queued. Try !help");
         return;
       }
     }
     // Disconnect Service
-    if (command === "disconnect" || command === "dc" || command === "quit" || command === "end") {
+    if (command === "quit" || command === "end" || command === "disconnect" || command === "dc") {
       try {
         guildQueue.stop();
-      } catch (err) {
+      } catch {
         channelToReply.send("Invalid command.");
         return;
       }
     }
     // Remove Loop
-    if (command === "removeLoop" || command === "noLoop") {
+    if (command === "removeLoop" || command === "rl" || command === "sl") {
       try {
-        guildQueue.setRepeatMode(RepeatMode.DISABLED); // or 0 instead of RepeatMode.DISABLED
+        guildQueue.setRepeatMode(0); // or 0 instead of RepeatMode.DISABLED
         channelToReply.send("Loop Stopped.");
-      } catch (err) {
+      } catch {
         channelToReply.send("Invalid command.");
         return;
       }
@@ -127,37 +127,37 @@ function InitMusicCommands(client, settings) {
     // Single Song Loop
     if (command === "toggleLoop" || command === "loop") {
       try {
-        guildQueue.setRepeatMode(RepeatMode.SONG); // or 1 instead of RepeatMode.SONG
+        guildQueue.setRepeatMode(1); // or 1 instead of RepeatMode.SONG
         channelToReply.send("Song loop toggled.");
-      } catch (err) {
+      } catch {
         channelToReply.send("Invalid command.");
         return;
       }
     }
     // Queue Loop
-    if (command === "toggleQueueLoop" || command === "qLoop") {
+    if (command === "toggleQueueLoop" || command === "ql") {
       try {
-        guildQueue.setRepeatMode(RepeatMode.QUEUE); // or 2 instead of RepeatMode.QUEUE
+        guildQueue.setRepeatMode(2); // or 2 instead of RepeatMode.QUEUE
         channelToReply.send("Queue loop toggled.");
-      } catch (err) {
+      } catch {
         channelToReply.send("Invalid command.");
         return;
       }
     }
     // Set Volume
-    // if (command === "setVolume") {
-    //   guildQueue.setVolume(parseInt(args[0]));
-    // }
+    if (command === "setVolume") {
+      guildQueue.setVolume(parseInt(args[0]));
+    }
     // Get Volume
-    // if (command === "getVolume") {
-    //   console.log(guildQueue.volume);
-    // }
+    if (command === "getVolume" || command === "vol") {
+      console.log(guildQueue.volume);
+    }
     // Seek
-    // if (command === "seek") {
-    //   guildQueue.seek(parseInt(args[0]) * 1000);
-    // }
+    if (command === "seek") {
+      guildQueue.seek(parseInt(args[0]) * 1000);
+    }
     // Clear Queue
-    if (command === "clearQueue" || command === "clear") {
+    if (command === "clear" || command === "clr") {
       try {
         guildQueue.clearQueue();
       } catch (err) {
@@ -166,7 +166,7 @@ function InitMusicCommands(client, settings) {
       }
     }
     // Shuffle Queue
-    if (command === "shuffle" || command === "mix") {
+    if (command === "shuffle" || command === "sf") {
       try {
         guildQueue.shuffle();
       } catch (err) {
@@ -175,7 +175,7 @@ function InitMusicCommands(client, settings) {
       }
     }
     // Now Playing
-    if (command === "nowPlaying" || command === "np") {
+    if (command === "nowPlaying" || command === "np" || command === "now") {
       try {
         let songs = client.player.createQueue(message.guild.id).songs;
         const embedMsg = new MessageEmbed().addField(
@@ -207,8 +207,8 @@ function InitMusicCommands(client, settings) {
         return;
       }
     }
-    // Remove
-    if (command === "remove") {
+    // Remove Song
+    if (command === "remove" || command === "rm") {
       try {
         guildQueue.remove(parseInt(args[0]));
       } catch (err) {
@@ -217,43 +217,45 @@ function InitMusicCommands(client, settings) {
       }
     }
     // Create Progress Bar
-    if (command === "createProgressBar" || command === "cpb") {
-      try {
-        const ProgressBar = guildQueue.createProgressBar();
-        // [======>              ][00:35/2:20]
-        channelToReply.send(ProgressBar.prettier);
-      } catch (err) {
-        channelToReply.send("Invalid command.");
-        return;
-      }
-    }
+    // if (command === "createProgressBar" || command === "cpb") {
+    //   try {
+    //     const ProgressBar = guildQueue.createProgressBar();
+    //     // [======>              ][00:35/2:20]
+    //     channelToReply.send(ProgressBar.prettier);
+    //   } catch (err) {
+    //     channelToReply.send("Invalid command.");
+    //     return;
+    //   }
+    // }
     // Help
-    if (command === "help" || command === "h") {
+    if (command === "halp" || command === "h" || command === "command") {
       try {
         const helpMsg = new MessageEmbed()
-        .setColor("#3d213e")
-        .setTitle('Raiden Bot Commands')
-        .setAuthor("Raiden Bot", message.author.displayAvatarURL(), "")
-        .setDescription('List of Commands')
-        .addFields(
-          { name: 'Show this Help Message', value: '-h OR -help' },
-          { name: 'Play a Song', value: '-p <SONG_NAME> OR -p <SONG_LINK_YTUBE>' },
-          { name: 'Pause', value: '-pause OR -stop', inline: true },
-          { name: 'Resume', value: '-resume OR -re', inline: true },
-          { name: 'Skip', value: '-skip OR -next', inline: true },
-          { name: 'Queue', value: '-queue OR -q', inline: true },
-          { name: 'Delete/Clear Queue', value: '-clear OR -clearQueue', inline: true },
-          { name: 'Show Playlist', value: '-playlist OR -list' },
-          { name: 'Show Progress Bar', value: '-createProgressBar OR -cpb' },
-          { name: 'Show Current Song', value: '-nowPlaying OR -np' },
-          { name: 'Disconnect Bot from Channel', value: '-dc OR -disconnect OR -quit OR -end' },
-          { name: 'STFU', value: '-stfu' }
-          // { name: '\u200B', value: '\u200B' }
-        )
-        .setFooter('Raiden is for Personal & Private use only.');
-      // .addField('Inline field title', 'Some value here', true)
-      // .setTimestamp()
-      channelToReply.send({ embeds: [helpMsg] });
+          .setColor("#3d213e")
+          .setTitle("Raiden Commands")
+          .setAuthor("Potato & Edumundo", message.author.displayAvatarURL(), "")
+          .setDescription("I can't cook but I can code.")
+          .addFields(
+            { name: "Asking for help ?", value: "`Halp or h`", inline: true },
+            { name: "Command Prefix:", value: "`-`", inline: true },
+            { name: "Note:", value: "**Not** case sensitive", inline: true },
+            { name: "Play", value: "`Play or p <SONG_NAME>/<YOUTUBE_SONG_URL>`" },
+            { name: "Pause/Stop", value: "`Pause or Stop`", inline: true },
+            { name: "Resume", value: "`Resume or re`", inline: true },
+            { name: "Skip/Next", value: "`Skip or next`", inline: true },
+            { name: "Display Queue", value: "`Queue or q`", inline: true },
+            { name: "Clear Queue", value: "`Clear or clr`", inline: true },
+            { name: "Shuffle", value: "`Shuffle or sf`", inline: true },
+            { name: "Loop Single Song", value: "`ToggleLoop or loop`", inline: true },
+            { name: "Loop Queue", value: "`QueueLoop or ql`", inline: true },
+            { name: "Remove/Stop Loop", value: "`RemoveLoop or rl`", inline: true },
+            { name: "Disconnect Bot from Channel", value: "`Disconnect or dc`" },
+            // { name: '\u200B', value: '\u200B' },
+          )
+          .setFooter("Raiden is for Personal & Private use only.");
+        // .addField('Inline field title', 'Some value here', true)
+        // .setTimestamp()
+        channelToReply.send({ embeds: [helpMsg] });
       } catch (err) {
         channelToReply.send("Invalid command.");
         return;
