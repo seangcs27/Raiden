@@ -16,5 +16,8 @@
     "package.json": "^2.0.1",
     "prettier": "^2.4.0",
     "winston": "^3.3.3"
+  },
+  "engines": {
+    "node": "16.x"
   }
 }
